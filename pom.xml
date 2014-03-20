@@ -25,7 +25,7 @@ under the License.
 	
 	<groupId>com.funshion.maven.plugin</groupId>
 	<artifactId>cooly-plugin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>cooly</name>

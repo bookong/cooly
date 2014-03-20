@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.funshion.test</groupId>
+	<artifactId>test-replace</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>test-replace</name>
+	
+	<properties>
+		<main-class>com.funshion.test.Main</main-class>
+		<java-version>1.6</java-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<build>
+		<finalName>${project.name}</finalName>
+		<plugins>
+			<plugin>
+				<!-- <groupId>org.apache.maven.plugins</groupId> -->
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${main-class}</mainClass>
+						</manifest>
+					</archive>
+					<excludes>
+						<exclude>**/log4j.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<!-- 将项目所有包放到一个指定目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<outputDirectory>
+						${project.build.directory}/lib
+					</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.funshion.maven.plugin</groupId>
+				<artifactId>cooly-plugin</artifactId>
+				<version>0.1</version>
+				<executions>
+					<!-- 
+					下面的 phase 可以不写，默认插件中为 process-test-classes，不写时eclipse会报错，但不影响 maven 构建。
+					要去掉eclipse的报错，可以参考：
+					http://liwenqiu.me/blog/2012/12/19/maven-lifecycle-mapping-not-converted/
+					http://wiki.eclipse.org/M2E_plugin_execution_not_covered
+					 -->
+					<execution>
+						<goals><goal>replace</goal></goals>
+						<!-- 在 test 阶段 -->
+						<phase>test</phase>
+						<configuration>
+							<!-- 记录配置信息的文件名，与工程根路径的相对位置 -->
+							<propsFilename>./ci_props.xml</propsFilename>
+							<!-- 要替换的扩展名 -->
+							<extName>ci_tmpl</extName>
+							<!-- 对那些目录下（与 target 的相对路径）的内容进行查找替换操作。可填写多个，用“,”分割。默认“classes” -->
+							<directoryToOperate>classes,test-classes</directoryToOperate>
+							<!-- 用于匹配变量的前缀。默认“${” -->
+							<propPrefix>${</propPrefix>
+							<!-- 用于匹配变量的后缀。默认“}” -->
+							<propSuffix>}</propSuffix>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jcl</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+	</dependencies>
+</project>

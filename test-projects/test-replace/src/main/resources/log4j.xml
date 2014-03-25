@@ -8,7 +8,7 @@
 		</layout>
 	</appender>
 
-	<logger name="com.funshion" additivity="false">
+	<logger name="net.bookong" additivity="false">
 		<level value="ALL" />
 		<appender-ref ref="console" />
 	</logger>	

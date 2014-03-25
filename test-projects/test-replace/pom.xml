@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.funshion.test</groupId>
+	<groupId>net.bookong.test</groupId>
 	<artifactId>test-replace</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>test-replace</name>
 	
 	<properties>
-		<main-class>com.funshion.test.Main</main-class>
+		<main-class>net.bookong.test.Main</main-class>
 		<java-version>1.6</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -63,7 +63,7 @@
 			</plugin>
 			
 			<plugin>
-				<groupId>com.funshion.maven.plugin</groupId>
+				<groupId>net.bookong.maven.plugin</groupId>
 				<artifactId>cooly-plugin</artifactId>
 				<version>0.1</version>
 				<executions>

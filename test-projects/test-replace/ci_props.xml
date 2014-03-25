@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<Props xmlns="http://funshion.com/maven/plugin/configreplace/schemas" >
+<Props xmlns="http://bookong.net/maven/plugin/configreplace/schemas" >
 
 	<Prop name="var1">true</Prop>
 	<Prop name="var2"><![CDATA[
-		http://www.funshion.com
+		http://www.bookong.net
 	]]></Prop>
 	
 </Props>

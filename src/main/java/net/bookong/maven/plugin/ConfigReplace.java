@@ -1,4 +1,4 @@
-package com.funshion.maven.plugin;
+package net.bookong.maven.plugin;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import net.bookong.maven.plugin.sdk.xml.cr.Prop;
+import net.bookong.maven.plugin.sdk.xml.cr.Props;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -23,15 +26,12 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.StringUtils;
 
-import com.funshion.maven.plugin.sdk.xml.cr.Prop;
-import com.funshion.maven.plugin.sdk.xml.cr.Props;
-
 /**
  * 替换文件内容
  * 
  * <pre>
  * mvn clean package deploy
- * mvn com.funshion.maven.plugin:cooly-plugin:0.0.1-SNAPSHOT:replace
+ * mvn net.bookong.maven.plugin:cooly-plugin:0.0.1-SNAPSHOT:replace
  * </pre>
  * 
  * 使用 process-test-classes 这个 phase 的原因是为了在跳过单元测试时 （mvn install -Dmaven.test.skip=true）也可以执行
@@ -202,7 +202,7 @@ public class ConfigReplace extends AbstractMojo {
 	/** 读取配置内容 */
 	private void loadPropsFromXml(String filepath) throws Exception {
 		getLog().info("Load variables from :" + filepath);
-		JAXBContext cxt = JAXBContext.newInstance("com.funshion.maven.plugin.sdk.xml.cr");
+		JAXBContext cxt = JAXBContext.newInstance("net.bookong.maven.plugin.sdk.xml.cr");
 		Unmarshaller unm = cxt.createUnmarshaller();
 		FileInputStream fis = null;
 		try {
@@ -231,12 +231,12 @@ public class ConfigReplace extends AbstractMojo {
 		try {
 			// 产生 xml 解析类
 			com.sun.tools.xjc.XJCFacade.main(new String[]{
-					"-p", "com.funshion.maven.plugin.sdk.xml.cr",
-					"-d", "D:\\CodeRepository\\git\\huntaway\\projects\\cooly\\src\\main\\java", 
-					"D:\\CodeRepository\\git\\huntaway\\projects\\cooly\\src\\main\\resources\\schema\\cr.xsd"});
-		} catch (Exception e) {
+					"-p", "net.bookong.maven.plugin.sdk.xml.cr",
+					"-d", "/Users/user/git/cooly/src/main/java/", 
+					"/Users/user/git/cooly/src/main/resources/schema/cr.xsd"});
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
-	*/
+	//*/
 }

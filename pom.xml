@@ -23,7 +23,7 @@ under the License.
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.funshion.maven.plugin</groupId>
+	<groupId>net.bookong.maven.plugin</groupId>
 	<artifactId>cooly-plugin</artifactId>
 	<version>0.1</version>
 	<packaging>maven-plugin</packaging>
@@ -44,22 +44,6 @@ under the License.
 			<url>http://172.16.12.12:8081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
-	
-	<!-- 部署到北京的nexus上
-	<distributionManagement>
-	    <snapshotRepository>
-	        <id>InternalSnapshots</id>
-	        <name>Internal Snapshots</name>
-	        <url>http://192.168.16.232:8081/nexus/content/repositories/snapshots/</url>
-	    </snapshotRepository>
-		<repository>
-			<id>InternalReleases</id>
-			<name>Internal Releases</name>
-			<url>http://192.168.16.232:8081/nexus/content/repositories/releases/</url>
-		</repository>
-	</distributionManagement>
-	-->
 
 	<dependencies>
 		<dependency>

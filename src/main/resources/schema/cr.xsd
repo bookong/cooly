@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns:cr="http://bookong.net/maven/plugin/configreplace/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://bookong.net/maven/plugin/configreplace/schemas">
+<xs:schema 
+	xmlns:cr="https://github.com/bookong/cooly/schema" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified" 
+	targetNamespace="https://github.com/bookong/cooly/schema">
 
 	<xs:element name="Props">
 		<xs:complexType>

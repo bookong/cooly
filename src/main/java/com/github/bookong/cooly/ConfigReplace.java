@@ -1,12 +1,7 @@
-package net.bookong.maven.plugin;
+package com.github.bookong.cooly;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -15,23 +10,24 @@ import java.util.regex.Pattern;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
-import net.bookong.maven.plugin.sdk.xml.cr.Prop;
-import net.bookong.maven.plugin.sdk.xml.cr.Props;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
+
+import com.github.bookong.cooly.sdk.xml.cr.Prop;
+import com.github.bookong.cooly.sdk.xml.cr.Props;
 
 /**
  * 替换文件内容
  * 
  * <pre>
  * mvn clean package deploy
- * mvn net.bookong.maven.plugin:cooly-plugin:0.0.1-SNAPSHOT:replace
+ * mvn net.bookong.maven.plugin:cooly-plugin:0.2.0:replace
  * </pre>
  * 
  * 使用 process-test-classes 这个 phase 的原因是为了在跳过单元测试时 （mvn install -Dmaven.test.skip=true）也可以执行
@@ -116,7 +112,7 @@ public class ConfigReplace extends AbstractMojo {
 			String filepath = file.getAbsolutePath();
 			if (filepath.endsWith(extName)) {
 				String confFilepath = filepath.substring(0, filepath.lastIndexOf('.'));
-				String content = loadFileContent(filepath);
+				String content = FileUtils.fileRead(filepath, "UTF-8");
 
 				getLog().info("Replace file: " + confFilepath);
 				for (String key : props.keySet()) {
@@ -141,7 +137,8 @@ public class ConfigReplace extends AbstractMojo {
 					throw new Exception(buff.toString());
 				}
 				
-				saveFileContent(confFilepath, content);
+				FileUtils.fileWrite(confFilepath, content);
+				
 				new File(filepath).delete();
 			}
 
@@ -153,56 +150,10 @@ public class ConfigReplace extends AbstractMojo {
 		}
 	}
 	
-	/** 读取要处理的文件内容 */
-	private String loadFileContent(String path) throws Exception {
-		File file = new File(path);
-		BufferedReader reader = null;
-		StringBuffer buff = new StringBuffer();
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String tempString = null;
-			while ((tempString = reader.readLine()) != null) {
-				buff.append(tempString).append("\n");
-			}
-			return buff.toString();
-		}catch(Exception e) {
-			throw e;
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e1) {
-					getLog().warn("Fail to close BufferedReader.");
-				}
-			}
-		}
-	}
-	
-	/** 将处理后的文件保存到磁盘上 */
-	private void saveFileContent(String path, String content) throws Exception {
-		File file = new File(path);
-		BufferedWriter writer = null;
-		try {
-			writer = new BufferedWriter(new FileWriter(file));
-			writer.write(content);
-			writer.flush();
-		}catch(Exception e) {
-			throw e;
-		} finally {
-			if (writer != null) {
-				try {
-					writer.close();
-				} catch (IOException e1) {
-					getLog().warn("Fail to close BufferedWriter.");
-				}
-			}
-		}
-	}
-	
 	/** 读取配置内容 */
 	private void loadPropsFromXml(String filepath) throws Exception {
 		getLog().info("Load variables from :" + filepath);
-		JAXBContext cxt = JAXBContext.newInstance("net.bookong.maven.plugin.sdk.xml.cr");
+		JAXBContext cxt = JAXBContext.newInstance("com.github.bookong.cooly.sdk.xml.cr");
 		Unmarshaller unm = cxt.createUnmarshaller();
 		FileInputStream fis = null;
 		try {
@@ -231,9 +182,9 @@ public class ConfigReplace extends AbstractMojo {
 		try {
 			// 产生 xml 解析类
 			com.sun.tools.xjc.XJCFacade.main(new String[]{
-					"-p", "net.bookong.maven.plugin.sdk.xml.cr",
-					"-d", "/Users/user/git/cooly/src/main/java/", 
-					"/Users/user/git/cooly/src/main/resources/schema/cr.xsd"});
+					"-p", "com.github.bookong.cooly.sdk.xml.cr",
+					"-d", "/Volumes/MacData/data/Work/git/cooly/src/main/java/", 
+					"/Volumes/MacData/data/Work/git/cooly/src/main/resources/schema/cr.xsd"});
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -63,9 +63,9 @@
 			</plugin>
 			
 			<plugin>
-				<groupId>net.bookong.maven.plugin</groupId>
+				<groupId>com.github.bookong</groupId>
 				<artifactId>cooly-plugin</artifactId>
-				<version>0.1</version>
+				<version>0.2.0</version>
 				<executions>
 					<!-- 
 					下面的 phase 可以不写，默认插件中为 process-test-classes，不写时eclipse会报错，但不影响 maven 构建。

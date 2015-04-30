@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<Props xmlns="http://bookong.net/maven/plugin/configreplace/schemas" >
+<Props xmlns="https://github.com/bookong/cooly/schema" >
 
 	<Prop name="var1">true</Prop>
 	<Prop name="var2"><![CDATA[

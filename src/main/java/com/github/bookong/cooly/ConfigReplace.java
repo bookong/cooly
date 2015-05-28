@@ -53,6 +53,10 @@ public class ConfigReplace extends AbstractMojo {
 	@Parameter(property="propSuffix", defaultValue="}" )
 	private String propSuffix;
 	
+	/** 是否显示属性内容  */
+    @Parameter(property="showPropContent", defaultValue="false" )
+    private Boolean showPropContent;
+	
 	
 	/** 对那些目录下（与 target 的相对路径）的内容进行查找替换操作。可填写多个，用“,”分割 */
 	@Parameter(property="directoryToOperate", defaultValue="classes" )
@@ -162,7 +166,11 @@ public class ConfigReplace extends AbstractMojo {
 			for (Prop item : root.getProp()) {
 				String value = item.getValue().trim();
 				props.put(item.getName(), value);
-				getLog().info("    " + item.getName() + " -> \"" + value + "\"");
+				if (showPropContent) {
+				    getLog().info("    " + item.getName() + " -> \"" + value + "\"");
+				} else {
+				    getLog().info("    " + item.getName() + " -> \"" + StringUtils.leftPad("", value.length(), "*") + "\"");
+				}
 			}
 		} catch (Exception e) {
 			throw e;

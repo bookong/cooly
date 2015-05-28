@@ -7,7 +7,7 @@
 	<groupId>com.github.bookong</groupId>
 	<packaging>maven-plugin</packaging>
 	<artifactId>cooly-plugin</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	
 	<name>cooly</name>
 	<description>An useful maven plugin.</description>
